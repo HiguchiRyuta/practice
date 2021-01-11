@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Home from './component/page/Home'
+import {Switch } from 'react-router'
+import {BrowserRouter as Router,Route,} from 'react-router-dom'
+import About from './component/page/Hotels';
+import Header from './component/template/Header'
+import { colorProperties } from './CSSProperties/ColorProperties/colorProperties';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      backgroundColor: colorProperties.myTravelColorGrayGreen,
+      height: '100%',
+    },
+    body: {
+      width: '90%',
+      marginRight:'auto',
+      marginLeft:'auto',
+    },
+    
+  })
+);
+const App = React.memo(() => {
+  const classes = useStyles();
 
+  return(
+    <div className={classes.container}>
+      <div className={classes.body}>
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path='/'>
+              <Home/>
+            </Route>
+            <Route path='/about'>
+              <About/>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+   </div>
+  )
+})
 export default App;
